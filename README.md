@@ -1,0 +1,2 @@
+# bookroll_downloader
+ブックロールをダウンロードするためのchrome拡張機能
