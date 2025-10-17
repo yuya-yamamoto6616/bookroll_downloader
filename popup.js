@@ -1,3 +1,8 @@
+/**
+ * BookRoll Downloader - Popup Script
+ * このコードはGitHub Copilot (AI) の支援を受けて作成されています
+ */
+
 document.getElementById('startDownload').addEventListener('click', () => {
   // 現在開いているタブの情報を取得
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
