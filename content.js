@@ -1,3 +1,12 @@
+/**
+ * BookRoll Downloader - Content Script
+ * 
+ * BookRollの資料を自動でPDF化するChrome拡張機能
+ * このコードはGitHub Copilot (AI) の支援を受けて作成されています
+ * 
+ * @author yuya-yamamoto6616 (with AI assistance)
+ */
+
 // 処理を少し待つための関数
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
