@@ -21,13 +21,31 @@ function findValidCanvas() {
     ...Array.from(allCanvases).filter(c => c.width > 100 && c.height > 100)
   ]));
   
+  // 警告回避用の一時Canvasを1つだけ作成して使い回す
+  if (!window._tempCanvasForCheck) {
+    window._tempCanvasForCheck = document.createElement('canvas');
+    window._tempCtxForCheck = window._tempCanvasForCheck.getContext('2d', { willReadFrequently: true });
+  }
+  const tempCanvas = window._tempCanvasForCheck;
+  const tempCtx = window._tempCtxForCheck;
+  
   for (const candidate of canvasCandidates) {
     if (!candidate) continue;
     
     try {
-      // 既存のコンテキストを取得（willReadFrequentlyは指定しない）
-      const ctx = candidate.getContext('2d');
-      const imgData = ctx.getImageData(0, 0, candidate.width, candidate.height);
+      // 一時Canvasのサイズを対象のCanvasに合わせる
+      if (tempCanvas.width !== candidate.width || tempCanvas.height !== candidate.height) {
+        tempCanvas.width = candidate.width;
+        tempCanvas.height = candidate.height;
+      }
+      
+      // 元のCanvasの内容を一時Canvasにコピー
+      tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+      tempCtx.drawImage(candidate, 0, 0);
+      
+      // 一時Canvasからピクセルデータを取得（これで警告が出ない）
+      const imgData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+      
       // 32ビット単位でピクセルデータを扱うことで比較を高速化
       const data32 = new Uint32Array(imgData.data.buffer);
       
