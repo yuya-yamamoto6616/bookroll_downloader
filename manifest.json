@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/chrome-manifest",
   "manifest_version": 3,
   "name": "BookRoll Downloader",
-  "version": "1.0",
+  "version": "2.0",
   "description": "Downloads images from BookRoll pages and converts to PDF. (Created with AI assistance)",
   "icons": {
     "16": "icon16.png",
